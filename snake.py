@@ -26,7 +26,7 @@ snake = [
 
 food = [sh/2, sw/2]
 w.addstr(0, 0, message2)
-w.addstr(int(sh/4) + 10, 0, message1)
+w.addstr(sh - int(sh/4) - 2, 0, message1)
 w.addstr(int(food[0]), int(food[1]), '@')
 
 key = curses.KEY_RIGHT
@@ -36,7 +36,7 @@ sent1 = list(' PONIES PONIES PONIES...')
 sent2 = list(' saddle up partner')
 sent3 = list(' all hat no cattle')
 sent4 = list(' PONY UP BUCKAROO!!!')
-sent5 = list('I LOVE YOU!!!!')
+sent5 = list(' I LOVE YOU!!!!')
 sent6 = list(' BUTTMOUSE BUTTMOUSE BUTTMOUSE')
 
 
@@ -62,7 +62,6 @@ while True:
 
     new_head = [snake[0][0], snake[0][1]]
 
-
     if key == curses.KEY_DOWN:
         new_head[0] += 1
     if key == curses.KEY_UP:
@@ -84,6 +83,7 @@ while True:
 
         dict_vals = 0
         food = None
+        
         while food is None:
             nf = [
                 random.randint(1, sh-1),
