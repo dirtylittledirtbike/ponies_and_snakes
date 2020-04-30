@@ -1,6 +1,5 @@
 import random
 import curses
-import locale
 
 horse1 = '       _(\_/)\n      ((((^.\ \n    ((((  (6 \ \n   ((((( .    \ \n (((((  / ._  ,`, \n((((   /    `-.- \n((((   / '
 horse2 = '               ,%%%, \n             ,%%%` % \n            ,%%`( `| \n           ,%%@ /\_/ \n ,%.-"""--%%% "@@__ \n %%/   ' \
@@ -13,7 +12,6 @@ sh, sw = s.getmaxyx()
 w = curses.newwin(sh, sw, 0, 0)
 w.keypad(1)
 w.timeout(100)
-#w.border()
 
 snk_x = int(sw/2)
 snk_y = int(sh/2)
@@ -29,12 +27,7 @@ w.addstr(sh - int(sh/4) - 2, 0, horse1)
 w.addstr(int(food[0]), int(food[1]), '@')
 
 for i in range(0, sh):
-    for j in range(int(sw/3), sw):
-        w.addstr(i, int(sw/3),'|')
-#        w.addstr(int(sh-2), j, '_')
-        #        w.addstr(int(sw/3.5),i, '|')
-#        w.addstr(i, sw-2, '|')
-
+    w.addstr(i, int(sw/3),'|')
 
 key = curses.KEY_RIGHT
 counter = 0
@@ -43,12 +36,15 @@ sent1 = list(' PONIES PONIES PONIES...')
 sent2 = list(' saddle up partner')
 sent3 = list(' all hat no cattle')
 sent4 = list(' PONY UP BUCKAROO!!!')
-sent5 = list(' I LOVE YOU!!!!')
+sent5 = list(' YEEHAWW')
 sent6 = list(' BUTTMOUSE BUTTMOUSE BUTTMOUSE')
-
 
 my_dict = {'0': sent1, '1':sent2, '2': sent3, '3': \
            sent4, '4': sent5, '5': sent6}
+
+# this feels gross i hate duplicates
+reverse_dict = {'0': sent1[::-1], '1':sent2[::-1], '2': sent3[::-1], '3': \
+                sent4[::-1], '4': sent5[::-1], '5': sent6[::-1]}
 
 dict_vals = 0
 dict_keys = 0
@@ -66,13 +62,6 @@ while True:
 
     next_key = w.getch()
     key = key if next_key == -1 else next_key
-
-    if snake[0][0] in [0, sh - 1] or snake[0][1]  in [int(sw/3), sw -1] or snake[0] in snake[1:]:
-        curses.endwin()
-        print("your score: ", score)
-        quit()
-    
-
     new_head = [snake[0][0], snake[0][1]]
 
     if key == curses.KEY_DOWN:
@@ -100,21 +89,21 @@ while True:
         
         while food is None:
             nf = [
-                random.randint(0, sh-2),
+                random.randint(0, sh-1),
                 random.randint(int(sw/3) + 1, sw-1)
             ]
+            
             food = nf if nf not in snake else None
-#        w.addch(food[0], food[1], curses.ACS_DIAMOND)
         w.addstr(int(food[0]), int(food[1]), '@')
     else:
         tail = snake.pop()
         w.addch(int(tail[0]), int(tail[1]), ' ')
 
-    if reverse:
-        my_dict = {'0': sent1[::-1], '1':sent2[::-1], '2': sent3[::-1],\
-                   '3': sent4[::-1], '4': sent5[::-1], '5': sent6[::-1]}
-        w.addch(int(snake[0][0]), int(snake[0][1]), my_dict[str(dict_keys)][dict_vals])
+    if snake[0][0] in [0, sh] or snake[0][1]  in [int(sw/3), sw] or snake[0] in snake[1:]:
+        curses.endwin()
+        print("your score: ", score)
+        quit()
+    elif reverse:
+        w.addch(int(snake[0][0]), int(snake[0][1]), reverse_dict[str(dict_keys)][dict_vals])
     else:
-        my_dict = {'0': sent1, '1':sent2, '2': sent3, '3': \
-                   sent4, '4': sent5, '5': sent6}
         w.addch(int(snake[0][0]), int(snake[0][1]), my_dict[str(dict_keys)][dict_vals])
