@@ -21,7 +21,7 @@ snake = [
     [snk_y, snk_x-2]
 ]
 
-food = [sh/2 + 10, sw/2]
+food = [sh/2 -1 , sw/2 + 12]
 w.addstr(1, 0, horse2)
 w.addstr(sh - int(sh/4) - 2, 0, horse1)
 w.addstr(int(food[0]), int(food[1]), '@')
