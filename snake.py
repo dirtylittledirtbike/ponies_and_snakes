@@ -29,9 +29,9 @@ w.addstr(sh - int(sh/4) - 2, 0, horse1)
 w.addstr(int(food[0]), int(food[1]), '@')
 
 for i in range(0, sh):
-    for j in range(0, sw):
+    for j in range(int(sw/3), sw):
         w.addstr(i, int(sw/3),'|')
-        #        w.addstr(0, j, '-')
+#        w.addstr(int(sh-2), j, '_')
         #        w.addstr(int(sw/3.5),i, '|')
 #        w.addstr(i, sw-2, '|')
 
@@ -67,7 +67,7 @@ while True:
     next_key = w.getch()
     key = key if next_key == -1 else next_key
 
-    if snake[0][0] in [0, sh] or snake[0][1]  in [int(sw/3), sw] or snake[0] in snake[1:]:
+    if snake[0][0] in [0, sh - 1] or snake[0][1]  in [int(sw/3), sw -1] or snake[0] in snake[1:]:
         curses.endwin()
         print("your score: ", score)
         quit()
@@ -100,7 +100,7 @@ while True:
         
         while food is None:
             nf = [
-                random.randint(1, sh-1),
+                random.randint(0, sh-2),
                 random.randint(int(sw/3) + 1, sw-1)
             ]
             food = nf if nf not in snake else None
