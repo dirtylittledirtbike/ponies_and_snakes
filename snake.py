@@ -102,6 +102,8 @@ while True:
     if snake[0][0] in [0, sh] or snake[0][1]  in [int(sw/3), sw] or snake[0] in snake[1:]:
         curses.endwin()
         print("your score: ", score)
+        if score > 44:
+            print('you beat my high score CHEATERRRRRR')
         quit()
     elif reverse:
         w.addch(int(snake[0][0]), int(snake[0][1]), reverse_dict[str(dict_keys)][dict_vals])
