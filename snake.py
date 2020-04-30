@@ -38,13 +38,16 @@ sent3 = list(' all hat no cattle')
 sent4 = list(' PONY UP BUCKAROO!!!')
 sent5 = list(' YEEHAWW')
 sent6 = list(' BUTTMOUSE BUTTMOUSE BUTTMOUSE')
+sent7 = list(' Theres a SNAKE in my BOOT! ')
+sent8 = list(' (∩`-´)⊃━☆ﾟ.*･｡ﾟ')
 
 my_dict = {'0': sent1, '1':sent2, '2': sent3, '3': \
-           sent4, '4': sent5, '5': sent6}
+    sent4, '4': sent5, '5': sent6, '6': sent7, '7': sent8}
 
 # this feels gross i hate duplicates
 reverse_dict = {'0': sent1[::-1], '1':sent2[::-1], '2': sent3[::-1], '3': \
-                sent4[::-1], '4': sent5[::-1], '5': sent6[::-1]}
+                sent4[::-1], '4': sent5[::-1], '5': sent6[::-1], '6': sent7[::-1],\
+                '7': sent8[::-1]}
 
 dict_vals = 0
 dict_keys = 0
