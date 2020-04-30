@@ -2,8 +2,6 @@ import random
 import curses
 import locale
 
-locale.setlocale(locale.LC_ALL, '')
-
 horse1 = '       _(\_/)\n      ((((^.\ \n    ((((  (6 \ \n   ((((( .    \ \n (((((  / ._  ,`, \n((((   /    `-.- \n((((   / '
 horse2 = '               ,%%%, \n             ,%%%` % \n            ,%%`( `| \n           ,%%@ /\_/ \n ,%.-"""--%%% "@@__ \n %%/   ' \
     '          |__`\ \n.%`\     |   \   /  // \n,%` >   .`----\ |  [/ \n  < <<`       || \n    `\\\       || ' \
@@ -51,6 +49,7 @@ sent6 = list(' BUTTMOUSE BUTTMOUSE BUTTMOUSE')
 
 my_dict = {'0': sent1, '1':sent2, '2': sent3, '3': \
            sent4, '4': sent5, '5': sent6}
+
 dict_vals = 0
 dict_keys = 0
 reverse = False
@@ -68,9 +67,11 @@ while True:
     next_key = w.getch()
     key = key if next_key == -1 else next_key
 
-    if snake[0][0] in [0, sh] or snake[0][1]  in [int(sw/3) + 1, sw] or snake[0] in snake[1:]:
+    if snake[0][0] in [0, sh] or snake[0][1]  in [int(sw/3), sw] or snake[0] in snake[1:]:
         curses.endwin()
+        print("your score: ", score)
         quit()
+    
 
     new_head = [snake[0][0], snake[0][1]]
 
@@ -110,8 +111,10 @@ while True:
         w.addch(int(tail[0]), int(tail[1]), ' ')
 
     if reverse:
-        my_dict = {'0': sent1[::-1], '1':sent2[::-1], '2': sent3[::-1], '3': sent4[::-1], '4': sent5[::-1]}
+        my_dict = {'0': sent1[::-1], '1':sent2[::-1], '2': sent3[::-1],\
+                   '3': sent4[::-1], '4': sent5[::-1], '5': sent6[::-1]}
         w.addch(int(snake[0][0]), int(snake[0][1]), my_dict[str(dict_keys)][dict_vals])
     else:
-        my_dict = {'0': sent1, '1':sent2, '2': sent3, '3': sent4, '4': sent5}
+        my_dict = {'0': sent1, '1':sent2, '2': sent3, '3': \
+                   sent4, '4': sent5, '5': sent6}
         w.addch(int(snake[0][0]), int(snake[0][1]), my_dict[str(dict_keys)][dict_vals])
