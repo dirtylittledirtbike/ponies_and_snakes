@@ -118,7 +118,7 @@ while True:
 
     if snake[0][0] in [0, sh] or snake[0][1]  in [int(sw/3), sw] or snake[0] in snake[1:]:
         curses.endwin()
-        print("your score: ", score)
+        print("your score: {}".format(score))
         if score > high_score:
             high_score = score
             with open("high_score.pickle", "wb") as pickle_file:
