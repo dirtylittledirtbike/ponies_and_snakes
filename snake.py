@@ -39,7 +39,7 @@ sent2 = list(' saddle up partner')
 sent3 = list(' all hat no cattle')
 sent4 = list(' PONY UP BUCKAROO!!!')
 sent5 = list(' YEEHAWW')
-sent6 = list(' giddy up')
+sent6 = list(' WOAHHH NELLY')
 sent7 = list(' Theres a SNAKE in my BOOT! ')
 sent8 = list(' (n`-`)>-* ')
 
