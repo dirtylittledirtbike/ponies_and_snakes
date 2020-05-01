@@ -41,7 +41,7 @@ sent4 = list(' PONY UP BUCKAROO!!!')
 sent5 = list(' YEEHAWW')
 sent6 = list(' giddy up')
 sent7 = list(' Theres a SNAKE in my BOOT! ')
-sent8 = list(' (∩`-´)⊃━☆ﾟ.*･｡ﾟ')
+sent8 = list(' (n`-`)>-* ')
 
 my_dict = {'0': sent1, '1':sent2, '2': sent3, '3': \
            sent4, '4': sent5, '5': sent6, '6': sent7, '7': sent8}
