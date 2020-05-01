@@ -1,5 +1,7 @@
 import random
 import curses
+import pickle
+import os
 
 horse1 = '       _(\_/)\n      ((((^.\ \n    ((((  (6 \ \n   ((((( .    \ \n (((((  / ._  ,`, \n((((   /    `-.- \n((((   / '
 horse2 = '               ,%%%, \n             ,%%%` % \n            ,%%`( `| \n           ,%%@ /\_/ \n ,%.-"""--%%% "@@__ \n %%/   ' \
@@ -37,12 +39,12 @@ sent2 = list(' saddle up partner')
 sent3 = list(' all hat no cattle')
 sent4 = list(' PONY UP BUCKAROO!!!')
 sent5 = list(' YEEHAWW')
-sent6 = list(' BUTTMOUSE BUTTMOUSE BUTTMOUSE')
+sent6 = list(' giddy up')
 sent7 = list(' Theres a SNAKE in my BOOT! ')
 sent8 = list(' (∩`-´)⊃━☆ﾟ.*･｡ﾟ')
 
 my_dict = {'0': sent1, '1':sent2, '2': sent3, '3': \
-    sent4, '4': sent5, '5': sent6, '6': sent7, '7': sent8}
+           sent4, '4': sent5, '5': sent6, '6': sent7, '7': sent8}
 
 # this feels gross i hate duplicates
 reverse_dict = {'0': sent1[::-1], '1':sent2[::-1], '2': sent3[::-1], '3': \
@@ -52,7 +54,19 @@ reverse_dict = {'0': sent1[::-1], '1':sent2[::-1], '2': sent3[::-1], '3': \
 dict_vals = 0
 dict_keys = 0
 reverse = False
+high_score = 0
 score = 0
+
+#create score file if doesnt exist
+pickle_exists = os.path.isfile('high_score.pickle')
+
+# load high scores
+if pickle_exists == True:
+    with open("high_score.pickle", 'rb') as pickle_file:
+        high_score = pickle.load(pickle_file)
+else:
+    with open("high_score.pickle", "wb") as pickle_file:
+        pickle.dump(high_score, pickle_file)
 
 while True:
     # display score
@@ -105,8 +119,13 @@ while True:
     if snake[0][0] in [0, sh] or snake[0][1]  in [int(sw/3), sw] or snake[0] in snake[1:]:
         curses.endwin()
         print("your score: ", score)
-        if score > 51:
-            print('YOU BEAT MY HIGH SCORE!!! CHEATERRRRRR')
+        if score > high_score:
+            high_score = score
+            with open("high_score.pickle", "wb") as pickle_file:
+                pickle.dump(high_score, pickle_file)
+            print('New "Personal" High Score!!!')
+        elif score > 55:
+            print('YOU BEAT MY HIGH SCORE AKSASDFLDFJ!?! CHEATER CHEATERRRRRRR')
         quit()
     elif reverse:
         w.addch(int(snake[0][0]), int(snake[0][1]), reverse_dict[str(dict_keys)][dict_vals])
