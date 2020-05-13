@@ -3,6 +3,7 @@ import curses
 import pickle
 import os
 
+# ASCII art
 horse1 = '       _(\_/)\n      ((((^.\ \n    ((((  (6 \ \n   ((((( .    \ \n (((((  / ._  ,`, \n((((   /    `-.- \n((((   / '
 horse2 = '               ,%%%, \n             ,%%%` % \n            ,%%`( `| \n           ,%%@ /\_/ \n ,%.-"""--%%% "@@__ \n %%/   ' \
     '          |__`\ \n.%`\     |   \   /  // \n,%` >   .`----\ |  [/ \n  < <<`       || \n    `\\\       || ' \
@@ -31,6 +32,7 @@ w.addstr(int(food[0]), int(food[1]), '@')
 for i in range(0, sh):
     w.addstr(i, int(sw/3),'|')
 
+# initial direction
 key = curses.KEY_RIGHT
 counter = 0
 
@@ -46,7 +48,8 @@ sent8 = list(' (n`-`)>-* ')
 my_dict = {'0': sent1, '1':sent2, '2': sent3, '3': \
            sent4, '4': sent5, '5': sent6, '6': sent7, '7': sent8}
 
-# this feels gross i hate duplicates
+# this feels gross i hate duplicates but this will allow the sentences to always
+# be displayed from right to left so they are legible
 reverse_dict = {'0': sent1[::-1], '1':sent2[::-1], '2': sent3[::-1], '3': \
                 sent4[::-1], '4': sent5[::-1], '5': sent6[::-1], '6': sent7[::-1],\
                 '7': sent8[::-1]}
@@ -69,7 +72,7 @@ else:
         pickle.dump(high_score, pickle_file)
 
 while True:
-    # display score
+    
     w.addstr(0, 0, 'Score: ' + str(score))
    
     if dict_vals < len(my_dict[str(dict_keys)]) - 1:
@@ -99,7 +102,10 @@ while True:
             dict_keys += 1
         else:
             dict_keys = 0
-
+        
+        # setting this to zero so each time
+        # you get a new phrase it starts at the
+        # beginning of that sentence
         dict_vals = 0
         food = None
         score += 1
@@ -116,7 +122,7 @@ while True:
         tail = snake.pop()
         w.addch(int(tail[0]), int(tail[1]), ' ')
 
-    if snake[0][0] in [0, sh] or snake[0][1]  in [int(sw/3), sw] or snake[0] in snake[1:]:
+    if snake[0][0] in [-1, sh] or snake[0][1]  in [int(sw/3), sw] or snake[0] in snake[1:]:
         curses.endwin()
         print("Your Score: {}".format(score))
         if score > high_score:
@@ -131,3 +137,6 @@ while True:
         w.addch(int(snake[0][0]), int(snake[0][1]), reverse_dict[str(dict_keys)][dict_vals])
     else:
         w.addch(int(snake[0][0]), int(snake[0][1]), my_dict[str(dict_keys)][dict_vals])
+
+
+
